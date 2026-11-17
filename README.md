@@ -1,11 +1,19 @@
 # Ajolotito Notificaciones — TDD (Rondas 1 y 2)
 
 Repositorio de evidencia del ciclo **TDD ROJO → VERDE → REFACTOR** para el proyecto
-**Ajolotito hambriento**, siguiendo el `Manual_TDD_AjolotitoNotificaciones.docx`.
+**Ajolotito hambriento**, con el código de las **Rondas 1 y 2** tomado **literalmente**
+del `Manual_TDD_AjolotitoNotificaciones.docx`.
 
 - **Stack:** Flutter 3.47.6 · Dart 3.13.5 · `flutter_test`
 - **Carpeta de pruebas:** `test/` (convención Flutter, **no** `tests/`)
 - **Dominio:** `lib/dominio/` (**no** `lib/models/`)
+
+## Alcance
+
+El manual completo abarca **Ronda 0 a Ronda 13** (categorías, política, payload,
+planificador, permisos, servicio, ViewModel, pantalla, push, etc.). Esta entrega
+cubre **Ronda 1 (Setup)** y **Ronda 2 (Reloj + Mascota)** conforme a la instrucción
+recibida. Las Rondas 3–13 **no** están implementadas en este repositorio.
 
 ---
 
@@ -17,10 +25,10 @@ ajolotito_notificaciones/
 ├── lib/
 │   ├── main.dart
 │   └── dominio/
-│       ├── reloj.dart          # Reloj, RelojSistema, RelojFalso
-│       └── mascota.dart        # Humor, YaEstaLlena, Mascota
+│       ├── reloj.dart          # Reloj, RelojSistema, RelojFalso (literal del manual)
+│       └── mascota.dart        # Humor, YaEstaLlena, Mascota (literal del manual)
 ├── test/
-│   └── mascota_test.dart       # 16 pruebas (saciedad, humor, predicción, alimentar, ritmo, JSON)
+│   └── mascota_test.dart       # 16 pruebas (literal del manual)
 ├── android/app/
 │   ├── src/main/AndroidManifest.xml   # 2 permisos + 2 receivers
 │   └── build.gradle.kts               # desugaring
@@ -44,14 +52,12 @@ ajolotito_notificaciones/
 
 ## Ronda 1 — Setup
 
-Configuración nativa necesaria para notificaciones locales:
-
-| Archivo | Cambio |
-|---------|--------|
-| `pubspec.yaml` | Dependencias exactas: `flutter_local_notifications ">=20.1.0 <24.0.0"`, `timezone`, `shared_preferences`, `app_settings`; dev: `flutter_lints` |
-| `android/app/src/main/AndroidManifest.xml` | `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`; receivers `ScheduledNotificationReceiver` y `ScheduledNotificationBootReceiver` con sus intent-filters |
+| Archivo | Cambio (según el manual) |
+|---------|--------------------------|
+| `pubspec.yaml` | `flutter_local_notifications ">=20.1.0 <24.0.0"`, `timezone: ^0.10.0`, `shared_preferences: ^2.3.0`, `app_settings: ^5.1.1`; dev: `flutter_lints: ^5.0.0` |
+| `android/app/src/main/AndroidManifest.xml` | `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`; `ScheduledNotificationReceiver` y `ScheduledNotificationBootReceiver` con intent-filters `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `QUICKBOOT_POWERON`, `com.htc.intent.action.QUICKBOOT_POWERON` |
 | `android/app/build.gradle.kts` | `isCoreLibraryDesugaringEnabled = true` + `coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")` |
-| `ios/Runner/AppDelegate.swift` | `UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate` |
+| `ios/Runner/AppDelegate.swift` | `UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate` antes del `return` |
 
 **Captura de la ronda:**
 
@@ -74,8 +80,8 @@ Log: [`evidence/ronda2/01_red_test_failing.txt`](evidence/ronda2/01_red_test_fai
 
 ### 🟢 VERDE — código mínimo para pasar
 
-Se implementaron `lib/dominio/reloj.dart` y `lib/dominio/mascota.dart`.
-Resultado real: **`00:00 +16: All tests passed!`**
+Se implementaron `lib/dominio/reloj.dart` y `lib/dominio/mascota.dart` con el
+código del manual. Resultado real: **`00:00 +16: All tests passed!`**
 
 Log: [`evidence/ronda2/02_green_test_passing.txt`](evidence/ronda2/02_green_test_passing.txt)
 
@@ -83,8 +89,8 @@ Log: [`evidence/ronda2/02_green_test_passing.txt`](evidence/ronda2/02_green_test
 
 ### 🔵 REFACTOR — limpieza sin romper
 
-`dart format` + validación defensiva en `desdeTexto` (chequeos `is`, nunca lanza) y
-extracción de constantes. Resultado real: **sigue `00:00 +16: All tests passed!`**
+`dart format lib/dominio test/mascota_test.dart` (solo formato). Resultado real:
+**sigue `00:00 +16: All tests passed!`**
 
 Log: [`evidence/ronda2/03_refactor_test_passing.txt`](evidence/ronda2/03_refactor_test_passing.txt)
 
@@ -113,7 +119,7 @@ double saciedadEn(DateTime t) {
   if (!t.isAfter(desde)) return saciedadBase;
   final horas =
       t.difference(desde).inMicroseconds / Duration.microsecondsPerHour;
-  return max(0.0, saciedadBase - horas * puntosPorHora);
+  return math.max(0.0, saciedadBase - horas * puntosPorHora);
 }
 ```
 
@@ -125,14 +131,23 @@ double saciedadEn(DateTime t) {
 
 ---
 
-## Erratas del manual corregidas
+## Verificación contra el documento real
 
-1. `throwsA(isA<YaEstaLlena>()` → `throwsA(isA<YaEstaLlena>())`
-2. `Duration(` sin cerrar en `momentoEnQueBajaA` → cerrado
-3. Llaves `}` extra al final de `Mascota` → eliminadas
-4. `List<String,String>` en `mensajes.dart` (futuro) → `List<(String,String)>`
-5. `tests/` → `test/`
-6. `com.android.tools.desugar_jdk_libs:2.1.4` → coordenada Gradle válida `com.android.tools:desugar_jdk_libs:2.1.4`
+El `.docx` se extrajo y se comparó bloque por bloque. **El documento real ya trae
+las versiones correctas**; las 5 "erratas" que se habían reportado estaban en una
+transcripción previa, no en el `.docx`. Estado frente al documento:
+
+| Punto | Documento real | Repositorio |
+|-------|----------------|-------------|
+| `throwsA(isA<YaEstaLlena>())` | completo | ✅ completo |
+| `momentoEnQueBajaA` con `Duration(...)` cerrado | cerrado | ✅ cerrado |
+| Cierre de `class Mascota` | una sola llave | ✅ correcto |
+| `mensajes.dart` (Ronda 3) | `List<(String, String)>` | N/A (Ronda 3 fuera de alcance) |
+| Carpeta de pruebas | `test/` | ✅ `test/` |
+| Coordenada Gradle | `com.android.tools:desugar_jdk_libs:2.1.4` | ✅ idéntica |
+
+**Diferencia de alcance:** las Rondas 3–13 del documento **no** se implementaron,
+porque la instrucción fue hacer únicamente Rondas 1 y 2.
 
 ---
 

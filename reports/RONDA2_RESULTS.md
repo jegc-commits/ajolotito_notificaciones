@@ -3,6 +3,7 @@
 **Fecha:** 2026-11-16
 **Stack:** Flutter 3.47.6 / Dart 3.13.5 · `flutter_test`
 **Comando ejecutado:** `flutter test`
+**Fuente:** `Manual_TDD_AjolotitoNotificaciones.docx` (Rondas 1 y 2)
 **Archivo de pruebas:** `test/mascota_test.dart`
 **Implementación:** `lib/dominio/mascota.dart`, `lib/dominio/reloj.dart`
 
@@ -12,7 +13,7 @@
 |------|-----------|-----------|
 | 🔴 ROJO | `Some tests failed` — `Error: Undefined name 'Mascota'`, `'Humor' isn't a type`, `'YaEstaLlena' isn't a type` | `evidence/ronda2/01_red_test_failing.txt` + `captura_ronda2_rojo.png` |
 | 🟢 VERDE | `00:00 +16: All tests passed!` | `evidence/ronda2/02_green_test_passing.txt` + `captura_ronda2_verde.png` |
-| 🔵 REFACTOR | `00:00 +16: All tests passed!` (sin romper nada) | `evidence/ronda2/03_refactor_test_passing.txt` + `captura_ronda2_refactor.png` |
+| 🔵 REFACTOR | `00:00 +16: All tests passed!` (solo `dart format`) | `evidence/ronda2/03_refactor_test_passing.txt` + `captura_ronda2_refactor.png` |
 
 ## Tabla de tests (16)
 
@@ -37,7 +38,7 @@
 
 **Totales:** RED 0/16 · GREEN 16/16 · REFACTOR 16/16
 
-## Salida VERBATIM — 🟢 VERDE
+## Salida VERBATIM — 🟢 VERDE (fragmento de la corrida)
 
 ```
 00:00 +0: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart
@@ -60,21 +61,31 @@
 00:00 +16: All tests passed!
 ```
 
-## Erratas del manual corregidas
+## Nota sobre las "erratas"
 
-| # | Errata | Corrección aplicada |
-|---|--------|---------------------|
-| 1 | `throwsA(isA<YaEstaLlena>()` truncado | Se cerró el paréntesis: `throwsA(isA<YaEstaLlena>())` |
-| 2 | `Duration(` sin cerrar en `momentoEnQueBajaA` | Se cerró con `Duration(microseconds: ...)` |
-| 3 | 3 llaves `}` extra al final de `Mascota` | Bloque de clase cerrado una sola vez |
-| 4 | `List<String,String>` en `mensajes.dart` (Ronda 3) | Se usará `List<(String,String)>` (records de Dart 3) |
-| 5 | `tests/` | Se usa `test/` (convención Flutter); `tests/` eliminado |
-| 6 | `com.android.tools.desugar_jdk_libs:2.1.4` | Coordenada Gradle válida: `com.android.tools:desugar_jdk_libs:2.1.4` |
+Se extrajo el texto del `.docx` real y se revisó: **el documento ya trae las
+versiones correctas**. Las 5 discrepancias mencionadas (doble paréntesis en
+`throwsA`, `Duration(` sin cerrar, llaves extra, `List<String,String>`, `tests/`)
+pertenecían a una transcripción previa, no al documento. El código de este
+repositorio se tomó literal del `.docx`:
+
+- `throwsA(isA<YaEstaLlena>())` completo.
+- `momentoEnQueBajaA` con `Duration(microseconds: ...)` cerrado.
+- `class Mascota` cerrada correctamente.
+- `mensajes.dart` (Ronda 3, fuera de alcance) usa `List<(String, String)>`.
+- Carpeta `test/`; la coordenada Gradle del manual es
+  `com.android.tools:desugar_jdk_libs:2.1.4` (idéntica a la usada).
 
 ## Notas de implementación
 
-- `saciedadEn` usa `inMicroseconds / Duration.microsecondsPerHour` y `max(0.0, ...)` — no es un stub.
+- `saciedadEn` usa `inMicroseconds / Duration.microsecondsPerHour` y `math.max(0.0, ...)`.
 - `momentoEnQueBajaA` redondea microsegundos, por lo que `saciedadEn(momentoEnQueBajaA(40)) ≈ 40`.
 - `alimentar` lanza `YaEstaLlena` con saciedad `>= 90` y limita a `maxSaciedad` (100).
 - `conRitmo` conserva la saciedad actual, evitando saltos.
-- `desdeTexto` valida tipo por tipo (`is`) y atrapa cualquier excepción devolviendo `null`; nunca truena.
+- `desdeTexto` valida cada campo y atrapa `FormatException` devolviendo `null`.
+
+## Alcance
+
+El manual continúa con las Rondas 3–13 (categorías, mensajes, política, payload,
+planificador, permisos, servicio, VM, pantalla, push). **No** forman parte de esta
+entrega, que por instrucción cubre solo Rondas 1 y 2.

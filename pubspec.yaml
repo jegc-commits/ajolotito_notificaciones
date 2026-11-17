@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Desde la v20 los parametros de show/zonedSchedule/cancel/initialize son con nombre.
   flutter_local_notifications: ">=20.1.0 <24.0.0"
   timezone: ^0.10.0
   shared_preferences: ^2.3.0

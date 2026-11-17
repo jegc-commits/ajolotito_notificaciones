@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:math' as math;
 
-/// Estado de ánimo de la mascota según su saciedad.
 enum Humor { feliz, hambriento, famelico }
 
-/// Se lanza al intentar alimentar a una mascota que ya está llena.
 class YaEstaLlena implements Exception {
   const YaEstaLlena(this.nombre);
   final String nombre;
@@ -12,11 +10,10 @@ class YaEstaLlena implements Exception {
   String toString() => '$nombre ya no puede comer más';
 }
 
-/// Modelo de dominio de una mascota hambrienta.
-///
-/// La saciedad (0..100) baja linealmente con el tiempo según
-/// [puntosPorHora]. Todas las operaciones son puras: devuelven una nueva
-/// instancia en lugar de mutar el estado.
+/// Un ajolote cuya saciedad BAJA con el tiempo. No guardamos "cuánta hambre
+/// tiene ahora": guardamos un punto de partida (saciedadBase en `desde`) y
+/// CALCULAMOS el valor para cualquier instante. Así podemos predecir cuándo
+/// tendrá hambre y programar la notificación de antemano.
 class Mascota {
   const Mascota({
     required this.nombre,
@@ -25,7 +22,6 @@ class Mascota {
     this.puntosPorHora = 10,
   }) : assert(puntosPorHora > 0);
 
-  /// Crea una mascota llena (saciedad 100) en el instante [ahora].
   factory Mascota.nueva(
     String nombre,
     DateTime ahora, {
@@ -48,15 +44,13 @@ class Mascota {
   final DateTime desde;
   final double puntosPorHora;
 
-  /// Saciedad en el instante [t], acotada al rango 0..100.
   double saciedadEn(DateTime t) {
     if (!t.isAfter(desde)) return saciedadBase;
     final horas =
         t.difference(desde).inMicroseconds / Duration.microsecondsPerHour;
-    return max(0.0, saciedadBase - horas * puntosPorHora);
+    return math.max(0.0, saciedadBase - horas * puntosPorHora);
   }
 
-  /// Humor según la saciedad en [t].
   Humor humorEn(DateTime t) {
     final s = saciedadEn(t);
     if (s <= umbralCritico) return Humor.famelico;
@@ -64,8 +58,8 @@ class Mascota {
     return Humor.feliz;
   }
 
-  /// Instante en que la saciedad baja a [umbral]; si ya está debajo,
-  /// devuelve el punto de partida [desde].
+  /// Instante en que la saciedad baja hasta [umbral]. Si ya estaba por debajo
+  /// al empezar, devuelve `desde`.
   DateTime momentoEnQueBajaA(double umbral) {
     if (saciedadBase <= umbral) return desde;
     final horas = (saciedadBase - umbral) / puntosPorHora;
@@ -74,20 +68,18 @@ class Mascota {
     );
   }
 
-  /// Devuelve una mascota alimentada en [t]. Lanza [YaEstaLlena] si la
-  /// saciedad ya es de [limiteParaComer] o más.
   Mascota alimentar(DateTime t) {
     final actual = saciedadEn(t);
     if (actual >= limiteParaComer) throw YaEstaLlena(nombre);
     return Mascota(
       nombre: nombre,
-      saciedadBase: min(maxSaciedad, actual + porcion),
+      saciedadBase: math.min(maxSaciedad, actual + porcion),
       desde: t,
       puntosPorHora: puntosPorHora,
     );
   }
 
-  /// Devuelve una mascota con otro ritmo, sin saltos de saciedad.
+  /// Cambia el ritmo SIN saltos: la saciedad de este instante es el nuevo punto de partida.
   Mascota conRitmo(DateTime t, double nuevoRitmo) => Mascota(
     nombre: nombre,
     saciedadBase: saciedadEn(t),
@@ -95,47 +87,37 @@ class Mascota {
     puntosPorHora: nuevoRitmo,
   );
 
-  Map<String, Object> toJson() => <String, Object>{
+  Map<String, Object> toJson() => {
     'nombre': nombre,
     'saciedadBase': saciedadBase,
     'desde': desde.toIso8601String(),
     'puntosPorHora': puntosPorHora,
   };
 
-  String aTexto() => json.encode(toJson());
+  String aTexto() => jsonEncode(toJson());
 
-  /// Reconstruye una [Mascota] desde JSON. Devuelve `null` ante cualquier
-  /// dato inválido; nunca lanza.
+  /// Lo guardado en disco NO es de fiar (versión vieja, archivo dañado):
+  /// valida todo y devuelve null si algo no cuadra.
   static Mascota? desdeTexto(String? texto) {
-    if (texto == null || texto.isEmpty) return null;
+    if (texto == null) return null;
     try {
-      final data = json.decode(texto);
-      if (data is! Map) return null;
-
-      final nombre = data['nombre'];
-      final saciedadBase = data['saciedadBase'];
-      final desdeBruto = data['desde'];
-      final puntosPorHora = data['puntosPorHora'];
-
-      if (nombre is! String || nombre.isEmpty) return null;
-      if (saciedadBase is! num ||
-          saciedadBase < 0 ||
-          saciedadBase > maxSaciedad) {
+      final j = jsonDecode(texto);
+      if (j is! Map<String, dynamic>) return null;
+      final n = j['nombre'];
+      final s = j['saciedadBase'];
+      final d = j['desde'];
+      final r = j['puntosPorHora'];
+      if (n is! String || n.isEmpty || s is! num || d is! String || r is! num)
         return null;
-      }
-      if (desdeBruto is! String) return null;
-      if (puntosPorHora is! num || puntosPorHora <= 0) return null;
-
-      final desde = DateTime.tryParse(desdeBruto);
-      if (desde == null) return null;
-
+      final fecha = DateTime.tryParse(d);
+      if (fecha == null || s < 0 || s > maxSaciedad || r <= 0) return null;
       return Mascota(
-        nombre: nombre,
-        saciedadBase: saciedadBase.toDouble(),
-        desde: desde,
-        puntosPorHora: puntosPorHora.toDouble(),
+        nombre: n,
+        saciedadBase: s.toDouble(),
+        desde: fecha,
+        puntosPorHora: r.toDouble(),
       );
-    } catch (_) {
+    } on FormatException {
       return null;
     }
   }
