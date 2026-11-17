@@ -1,0 +1,18 @@
+00:00 +0: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart
+00:00 +0: saciedad empieza en 100 y baja 10 puntos por hora
+00:00 +1: saciedad nunca baja de 0
+00:00 +2: saciedad antes del punto de partida devuelve la base (sin valores raros)
+00:00 +3: humor (pruebas de frontera) feliz mientras la saciedad sea mayor a 40
+00:00 +4: humor (pruebas de frontera) hambriento justo en 40
+00:00 +5: humor (pruebas de frontera) hambriento hasta pasar 15
+00:00 +6: humor (pruebas de frontera) famélico justo en 15
+00:00 +7: predicción: ¿cuándo tendrá hambre? llega a 40 a las 6 horas y a 15 a las 8.5 horas
+00:00 +8: predicción: ¿cuándo tendrá hambre? si ya estaba por debajo, devuelve el punto de partida
+00:00 +9: predicción: ¿cuándo tendrá hambre? la predicción coincide con el cálculo de saciedad
+00:00 +10: alimentar suma una porción (35) a lo que tenga en ese momento
+00:00 +11: alimentar no pasa de 100
+00:00 +12: alimentar con 90 o más ya no quiere comer
+00:00 +13: cambiar el ritmo no produce saltos en la saciedad
+00:00 +14: guardar y leer (JSON) ida y vuelta conserva todo
+00:00 +15: guardar y leer (JSON) datos dañados o raros devuelven null, no truenan
+00:00 +16: All tests passed!

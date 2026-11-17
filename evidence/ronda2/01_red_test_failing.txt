@@ -1,0 +1,116 @@
+00:00 +0: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart
+test/mascota_test.dart:7:13: Error: Undefined name 'Mascota'.
+  final m = Mascota.nueva('X', t0);
+            ^^^^^^^
+test/mascota_test.dart:25:5: Error: 'Humor' isn't a type.
+    Humor aLas(double h) =>
+    ^^^^^
+test/mascota_test.dart:29:25: Error: Undefined name 'Humor'.
+      expect(aLas(5.9), Humor.feliz);
+                        ^^^^^
+test/mascota_test.dart:33:23: Error: Undefined name 'Humor'.
+      expect(aLas(6), Humor.hambriento);
+                      ^^^^^
+test/mascota_test.dart:37:23: Error: Undefined name 'Humor'.
+      expect(aLas(8), Humor.hambriento);
+                      ^^^^^
+test/mascota_test.dart:41:25: Error: Undefined name 'Humor'.
+      expect(aLas(8.5), Humor.famelico);
+                        ^^^^^
+test/mascota_test.dart:55:20: Error: Method not found: 'Mascota'.
+      final baja = Mascota(nombre: 'X', saciedadBase: 30, desde: t0);
+                   ^^^^^^^
+test/mascota_test.dart:61:11: Error: Method not found: 'Mascota'.
+          Mascota(nombre: 'X', saciedadBase: 77, desde: t0, puntosPorHora: 7);
+          ^^^^^^^
+test/mascota_test.dart:81:49: Error: 'YaEstaLlena' isn't a type.
+      expect(() => m.alimentar(t0), throwsA(isA<YaEstaLlena>()));
+                                                ^^^^^^^^^^^
+test/mascota_test.dart:97:24: Error: Method not found: 'Mascota'.
+      final original = Mascota(
+                       ^^^^^^^
+test/mascota_test.dart:103:21: Error: Undefined name 'Mascota'.
+      final copia = Mascota.desdeTexto(original.aTexto());
+                    ^^^^^^^
+test/mascota_test.dart:112:14: Error: Undefined name 'Mascota'.
+      expect(Mascota.desdeTexto(null), isNull);
+             ^^^^^^^
+test/mascota_test.dart:113:14: Error: Undefined name 'Mascota'.
+      expect(Mascota.desdeTexto('esto no es json'), isNull);
+             ^^^^^^^
+test/mascota_test.dart:114:14: Error: Undefined name 'Mascota'.
+      expect(Mascota.desdeTexto('{1,2,3}'), isNull);
+             ^^^^^^^
+test/mascota_test.dart:115:14: Error: Undefined name 'Mascota'.
+      expect(Mascota.desdeTexto('{"nombre":"X"}'), isNull);
+             ^^^^^^^
+test/mascota_test.dart:117:9: Error: Undefined name 'Mascota'.
+        Mascota.desdeTexto(
+        ^^^^^^^
+test/mascota_test.dart:123:9: Error: Undefined name 'Mascota'.
+        Mascota.desdeTexto(
+        ^^^^^^^
+test/mascota_test.dart:129:9: Error: Undefined name 'Mascota'.
+        Mascota.desdeTexto(
+        ^^^^^^^
+00:00 +0 -1: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart [E]
+  Failed to load "/home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart":
+  Compilation failed for testPath=/home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: test/mascota_test.dart:7:13: Error: Undefined name 'Mascota'.
+    final m = Mascota.nueva('X', t0);
+              ^^^^^^^
+  test/mascota_test.dart:25:5: Error: 'Humor' isn't a type.
+      Humor aLas(double h) =>
+      ^^^^^
+  test/mascota_test.dart:29:25: Error: Undefined name 'Humor'.
+        expect(aLas(5.9), Humor.feliz);
+                          ^^^^^
+  test/mascota_test.dart:33:23: Error: Undefined name 'Humor'.
+        expect(aLas(6), Humor.hambriento);
+                        ^^^^^
+  test/mascota_test.dart:37:23: Error: Undefined name 'Humor'.
+        expect(aLas(8), Humor.hambriento);
+                        ^^^^^
+  test/mascota_test.dart:41:25: Error: Undefined name 'Humor'.
+        expect(aLas(8.5), Humor.famelico);
+                          ^^^^^
+  test/mascota_test.dart:55:20: Error: Method not found: 'Mascota'.
+        final baja = Mascota(nombre: 'X', saciedadBase: 30, desde: t0);
+                     ^^^^^^^
+  test/mascota_test.dart:61:11: Error: Method not found: 'Mascota'.
+            Mascota(nombre: 'X', saciedadBase: 77, desde: t0, puntosPorHora: 7);
+            ^^^^^^^
+  test/mascota_test.dart:81:49: Error: 'YaEstaLlena' isn't a type.
+        expect(() => m.alimentar(t0), throwsA(isA<YaEstaLlena>()));
+                                                  ^^^^^^^^^^^
+  test/mascota_test.dart:97:24: Error: Method not found: 'Mascota'.
+        final original = Mascota(
+                         ^^^^^^^
+  test/mascota_test.dart:103:21: Error: Undefined name 'Mascota'.
+        final copia = Mascota.desdeTexto(original.aTexto());
+                      ^^^^^^^
+  test/mascota_test.dart:112:14: Error: Undefined name 'Mascota'.
+        expect(Mascota.desdeTexto(null), isNull);
+               ^^^^^^^
+  test/mascota_test.dart:113:14: Error: Undefined name 'Mascota'.
+        expect(Mascota.desdeTexto('esto no es json'), isNull);
+               ^^^^^^^
+  test/mascota_test.dart:114:14: Error: Undefined name 'Mascota'.
+        expect(Mascota.desdeTexto('{1,2,3}'), isNull);
+               ^^^^^^^
+  test/mascota_test.dart:115:14: Error: Undefined name 'Mascota'.
+        expect(Mascota.desdeTexto('{"nombre":"X"}'), isNull);
+               ^^^^^^^
+  test/mascota_test.dart:117:9: Error: Undefined name 'Mascota'.
+          Mascota.desdeTexto(
+          ^^^^^^^
+  test/mascota_test.dart:123:9: Error: Undefined name 'Mascota'.
+          Mascota.desdeTexto(
+          ^^^^^^^
+  test/mascota_test.dart:129:9: Error: Undefined name 'Mascota'.
+          Mascota.desdeTexto(
+          ^^^^^^^
+  .
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart

@@ -1,0 +1,40 @@
+$ grep -n "uses-permission\|receiver\|ScheduledNotification" android/app/src/main/AndroidManifest.xml
+2:    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+3:    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+35:        <receiver android:exported="false"
+36:            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+37:        <receiver android:exported="false"
+38:            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+45:        </receiver>
+
+$ grep -n "Desugaring\|coreLibraryDesugaring" android/app/build.gradle.kts
+13:        isCoreLibraryDesugaringEnabled = true
+53:    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+
+$ grep -n "UNUserNotificationCenter" ios/Runner/AppDelegate.swift
+11:    UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+
+$ cat pubspec.yaml
+name: ajolotito
+description: Ajolotito hambriento - notificaciones locales bien hechas en Flutter.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_local_notifications: ">=20.1.0 <24.0.0"
+  timezone: ^0.10.0
+  shared_preferences: ^2.3.0
+  app_settings: ^5.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
