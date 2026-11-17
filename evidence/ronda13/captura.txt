@@ -1,0 +1,7 @@
+$ grep -A4 "Este proyecto no las implementa" /tmp/opencode/manual.txt | head -5
+Las notificaciones push las envía un servidor. En Flutter lo habitual es usar Firebase Cloud Messaging (paquete firebase_messaging); en iOS, FCM usa por debajo el servicio de notificaciones de Apple (APNs). Este proyecto no las implementa, pero todo lo que aprendiste aplica: permiso en contexto, canales, silencio, tope, payload validado.
+Qué cambia
+Hace falta un backend (o la consola de Firebase) que envíe los mensajes, y que el teléfono registre un "token" de dispositivo en tu servidor.
+Hay mensajes de "notificación" (el sistema los muestra solo cuando la app está cerrada) y mensajes de "datos" (los procesa tu código; tú decides si mostrar algo, y a menudo lo muestras con flutter_local_notifications).
+La política (silencio, tope, preferencias) ahora debe aplicarse en el SERVIDOR antes de enviar, no solo en el teléfono.
+

@@ -1,0 +1,45 @@
+$ dart analyze lib/dominio/categoria.dart lib/dominio/mensajes.dart
+Analyzing categoria.dart, mensajes.dart...
+No issues found!
+
+$ flutter test test/mascota_test.dart
+Resolving dependencies...
+Downloading packages...
+  app_settings 5.2.0 (9.0.1 available)
+  dbus 0.7.15 (0.8.0 available)
+  flutter_lints 5.0.0 (6.0.0 available)
+  flutter_local_notifications 20.1.0 (23.0.2 available)
+  flutter_local_notifications_linux 7.0.0 (9.0.0 available)
+  flutter_local_notifications_platform_interface 10.0.0 (13.0.0 available)
+  flutter_local_notifications_windows 2.0.1 (4.0.1 available)
+  lints 5.1.1 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  petitparser 7.0.2 (7.1.0 available)
+  shared_preferences_foundation 2.5.7 (2.6.2 available)
+  test_api 0.7.12 (0.7.15 available)
+  timezone 0.10.1 (0.11.2 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 6.6.1 (7.1.0 available)
+Got dependencies!
+16 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart
+00:00 +0: saciedad empieza en 100 y baja 10 puntos por hora
+00:00 +1: saciedad nunca baja de 0
+00:00 +2: saciedad antes del punto de partida devuelve la base (sin valores raros)
+00:00 +3: humor (pruebas de frontera) feliz mientras la saciedad sea mayor a 40
+00:00 +4: humor (pruebas de frontera) hambriento justo en 40
+00:00 +5: humor (pruebas de frontera) hambriento hasta pasar 15
+00:00 +6: humor (pruebas de frontera) famélico justo en 15
+00:00 +7: predicción: ¿cuándo tendrá hambre? llega a 40 a las 6 horas y a 15 a las 8.5 horas
+00:00 +8: predicción: ¿cuándo tendrá hambre? si ya estaba por debajo, devuelve el punto de partida
+00:00 +9: predicción: ¿cuándo tendrá hambre? la predicción coincide con el cálculo de saciedad
+00:00 +10: alimentar suma una porción (35) a lo que tenga en ese momento
+00:00 +11: alimentar no pasa de 100
+00:00 +12: alimentar con 90 o más ya no quiere comer
+00:00 +13: cambiar el ritmo no produce saltos en la saciedad
+00:00 +14: guardar y leer (JSON) ida y vuelta conserva todo
+00:00 +15: guardar y leer (JSON) datos dañados o raros devuelven null, no truenan
+00:00 +16: All tests passed!
+

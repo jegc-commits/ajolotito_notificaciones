@@ -1,165 +1,129 @@
-# Ajolotito Notificaciones — TDD (Rondas 1 y 2)
+# Ajolotito Notificaciones — TDD completo (Rondas 1–13)
 
-Repositorio de evidencia del ciclo **TDD ROJO → VERDE → REFACTOR** para el proyecto
-**Ajolotito hambriento**, con el código de las **Rondas 1 y 2** tomado **literalmente**
-del `Manual_TDD_AjolotitoNotificaciones.docx`.
+Implementación por rondas del manual `Manual_TDD_AjolotitoNotificaciones.docx`.
+**Flutter 3.47.6 · Dart 3.13.5 · flutter_test**
 
-- **Stack:** Flutter 3.47.6 · Dart 3.13.5 · `flutter_test`
-- **Carpeta de pruebas:** `test/` (convención Flutter, **no** `tests/`)
-- **Dominio:** `lib/dominio/` (**no** `lib/models/`)
-
-## Alcance
-
-El manual completo abarca **Ronda 0 a Ronda 13** (categorías, política, payload,
-planificador, permisos, servicio, ViewModel, pantalla, push, etc.). Esta entrega
-cubre **Ronda 1 (Setup)** y **Ronda 2 (Reloj + Mascota)** conforme a la instrucción
-recibida. Las Rondas 3–13 **no** están implementadas en este repositorio.
-
----
-
-## Estructura del proyecto
-
-```
-ajolotito_notificaciones/
-├── pubspec.yaml
-├── lib/
-│   ├── main.dart
-│   └── dominio/
-│       ├── reloj.dart          # Reloj, RelojSistema, RelojFalso (literal del manual)
-│       └── mascota.dart        # Humor, YaEstaLlena, Mascota (literal del manual)
-├── test/
-│   └── mascota_test.dart       # 16 pruebas (literal del manual)
-├── android/app/
-│   ├── src/main/AndroidManifest.xml   # 2 permisos + 2 receivers
-│   └── build.gradle.kts               # desugaring
-├── ios/Runner/AppDelegate.swift        # delegate de notificaciones
-├── evidence/
-│   ├── ronda1/
-│   │   ├── 01_setup_config.txt
-│   │   └── captura_ronda1_setup.png
-│   └── ronda2/
-│       ├── 01_red_test_failing.txt
-│       ├── captura_ronda2_rojo.png
-│       ├── 02_green_test_passing.txt
-│       ├── captura_ronda2_verde.png
-│       ├── 03_refactor_test_passing.txt
-│       └── captura_ronda2_refactor.png
-└── reports/
-    └── RONDA2_RESULTS.md
-```
-
----
-
-## Ronda 1 — Setup
-
-| Archivo | Cambio (según el manual) |
-|---------|--------------------------|
-| `pubspec.yaml` | `flutter_local_notifications ">=20.1.0 <24.0.0"`, `timezone: ^0.10.0`, `shared_preferences: ^2.3.0`, `app_settings: ^5.1.1`; dev: `flutter_lints: ^5.0.0` |
-| `android/app/src/main/AndroidManifest.xml` | `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`; `ScheduledNotificationReceiver` y `ScheduledNotificationBootReceiver` con intent-filters `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `QUICKBOOT_POWERON`, `com.htc.intent.action.QUICKBOOT_POWERON` |
-| `android/app/build.gradle.kts` | `isCoreLibraryDesugaringEnabled = true` + `coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")` |
-| `ios/Runner/AppDelegate.swift` | `UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate` antes del `return` |
-
-**Captura de la ronda:**
-
-![Ronda 1 - Setup](evidence/ronda1/captura_ronda1_setup.png)
-
----
-
-## Ronda 2 — Reloj + Mascota (TDD)
-
-### 🔴 ROJO — el test falla primero
-
-Se escribió `test/mascota_test.dart` **antes** de la implementación y se ejecutó
-`flutter test`. Resultado real: `Some tests failed` con
-`Error: Undefined name 'Mascota'`, `'Humor' isn't a type` y
-`'YaEstaLlena' isn't a type`.
-
-Log: [`evidence/ronda2/01_red_test_failing.txt`](evidence/ronda2/01_red_test_failing.txt)
-
-![Ronda 2 - ROJO](evidence/ronda2/captura_ronda2_rojo.png)
-
-### 🟢 VERDE — código mínimo para pasar
-
-Se implementaron `lib/dominio/reloj.dart` y `lib/dominio/mascota.dart` con el
-código del manual. Resultado real: **`00:00 +16: All tests passed!`**
-
-Log: [`evidence/ronda2/02_green_test_passing.txt`](evidence/ronda2/02_green_test_passing.txt)
-
-![Ronda 2 - VERDE](evidence/ronda2/captura_ronda2_verde.png)
-
-### 🔵 REFACTOR — limpieza sin romper
-
-`dart format lib/dominio test/mascota_test.dart` (solo formato). Resultado real:
-**sigue `00:00 +16: All tests passed!`**
-
-Log: [`evidence/ronda2/03_refactor_test_passing.txt`](evidence/ronda2/03_refactor_test_passing.txt)
-
-![Ronda 2 - REFACTOR](evidence/ronda2/captura_ronda2_refactor.png)
-
-### Resultado de las 16 pruebas
-
-| Grupo | Tests | Verde |
-|-------|-------|-------|
-| `saciedad` | 3 | ✅ |
-| `humor (pruebas de frontera)` | 4 | ✅ |
-| `predicción: ¿cuándo tendrá hambre?` | 3 | ✅ |
-| `alimentar` | 3 | ✅ |
-| `cambiar el ritmo no produce saltos en la saciedad` | 1 | ✅ |
-| `guardar y leer (JSON)` | 2 | ✅ |
-| **Total** | **16** | **16/16** |
-
-Detalle completo con estado RED/GREEN por test: [`reports/RONDA2_RESULTS.md`](reports/RONDA2_RESULTS.md)
-
----
-
-## Fórmula de saciedad implementada
-
-```dart
-double saciedadEn(DateTime t) {
-  if (!t.isAfter(desde)) return saciedadBase;
-  final horas =
-      t.difference(desde).inMicroseconds / Duration.microsecondsPerHour;
-  return math.max(0.0, saciedadBase - horas * puntosPorHora);
-}
-```
-
-- **Humor:** `<= 15` famélico · `<= 40` hambriento · resto feliz.
-- **Predicción:** `desde + (saciedadBase - umbral) / puntosPorHora` horas.
-- **Alimentar:** `+35`, tope 100; lanza `YaEstaLlena` si la saciedad es `>= 90`.
-- **conRitmo:** conserva la saciedad actual y cambia el ritmo (sin saltos).
-- **JSON:** `aTexto()` / `desdeTexto()` con round-trip y validación total.
-
----
-
-## Verificación contra el documento real
-
-El `.docx` se extrajo y se comparó bloque por bloque. **El documento real ya trae
-las versiones correctas**; las 5 "erratas" que se habían reportado estaban en una
-transcripción previa, no en el `.docx`. Estado frente al documento:
-
-| Punto | Documento real | Repositorio |
-|-------|----------------|-------------|
-| `throwsA(isA<YaEstaLlena>())` | completo | ✅ completo |
-| `momentoEnQueBajaA` con `Duration(...)` cerrado | cerrado | ✅ cerrado |
-| Cierre de `class Mascota` | una sola llave | ✅ correcto |
-| `mensajes.dart` (Ronda 3) | `List<(String, String)>` | N/A (Ronda 3 fuera de alcance) |
-| Carpeta de pruebas | `test/` | ✅ `test/` |
-| Coordenada Gradle | `com.android.tools:desugar_jdk_libs:2.1.4` | ✅ idéntica |
-
-**Diferencia de alcance:** las Rondas 3–13 del documento **no** se implementaron,
-porque la instrucción fue hacer únicamente Rondas 1 y 2.
-
----
-
-## Cómo ejecutar
+| Resultado final | |
+|---|---|
+| `flutter test` | **74 tests · All tests passed** |
+| `dart analyze` | **No issues found** |
+| Archivos de prueba | **7** (`mascota`, `politica_payload`, `planificador`, `permiso`, `servicio`, `vm`, `pantalla`) |
 
 ```bash
 flutter pub get
 flutter test
 ```
 
-Salida esperada:
+---
+
+## Resumen por ronda
+
+| Ronda | Qué se hizo (breve) | Tests |
+|-------|---------------------|-------|
+| 0 | Los 10 mandamientos de una notificación (conceptual, sin código). | — |
+| 1 | Setup: `pubspec`, manifiesto Android (2 permisos + 2 receivers), desugaring, delegate iOS. | — |
+| 2 | `Reloj` + `Mascota`: saciedad, humor, predicción, alimentar, JSON. | 16 |
+| 3 | Categorías/canales Android y mensajes con personalidad. | 16 |
+| 4 | Política: silencio nocturno, tope diario, ajuste de horas. | 28 |
+| 5 | Payload versionado (`v1:destino`) tolerante a basura. | 28 |
+| 6 | Planificador: ids fijos, colapso, tope, ventana de 3 días. | 41 |
+| 7 | Puerto de notificaciones + `PuertoFalso`. | 41 |
+| 8 | Permiso en 3 estados (`sinPreguntar/concedido/denegado`) + almacén. | 47 |
+| 9 | `ServicioAjolote`: sincronización, primer/segundo plano, modo clase. | 61 |
+| 10 | Adaptador real del plugin (`PuertoReal`) + `SharedPreferences`. | 61 |
+| 11 | ViewModel, pantallas, dibujo del ajolote y arranque (`main`). | 74 |
+| 12 | Checklist de prueba en dispositivo real (manual). | 74 |
+| 13 | Push remoto: conceptual; el manual indica que **no** se implementa. | — |
+
+---
+
+## Capturas por ronda
+
+### Ronda 1 — Setup
+`pubspec.yaml`, `AndroidManifest.xml` (2 permisos + 2 receivers), `build.gradle.kts` con desugaring y `AppDelegate.swift`.
+
+<img src="evidence/ronda1/captura_ronda1_setup.png" width="820">
+
+### Ronda 2 — Reloj + Mascota
+Ciclo completo **ROJO → VERDE → REFACTOR** con 16 pruebas.
+
+<p>
+<img src="evidence/ronda2/captura_ronda2_rojo.png" width="270">
+<img src="evidence/ronda2/captura_ronda2_verde.png" width="270">
+<img src="evidence/ronda2/captura_ronda2_refactor.png" width="270">
+</p>
+
+### Ronda 3 — Categorías, canales y mensajes
+Dos canales (hambre alta, sorpresas baja) y textos deterministas por semilla.
+
+<img src="evidence/ronda3/captura_ronda3.png" width="820">
+
+### Ronda 4 — Política de buena educación
+Silencio 22:00–08:00 (cruza medianoche), mover al final del silencio y tope diario.
+
+<img src="evidence/ronda4/captura_ronda4.png" width="820">
+
+### Ronda 5 — Payload
+`v1:destino`; cualquier dato raro abre en `inicio` sin lanzar.
+
+<img src="evidence/ronda5/captura_ronda5.png" width="820">
+
+### Ronda 6 — Planificador
+Ids fijos, colapso de avisos cercanos, nada en silencio, 3 sorpresas adelantadas.
+
+<img src="evidence/ronda6/captura_ronda6.png" width="820">
+
+### Ronda 7 — Puerto y doble de pruebas
+Interfaz `PuertoNotificaciones` y `PuertoFalso` (mismo id reemplaza).
+
+<img src="evidence/ronda7/captura_ronda7.png" width="820">
+
+### Ronda 8 — Permiso con inteligencia
+Pedir una sola vez, en contexto; si deniega, guiar a Ajustes sin insistir.
+
+<img src="evidence/ronda8/captura_ronda8.png" width="820">
+
+### Ronda 9 — Servicio sincronizado
+Cancelar → comprobar permiso → reprogramar; sin hambre en primer plano.
+
+<img src="evidence/ronda9/captura_ronda9.png" width="820">
+
+### Ronda 10 — Adaptador real
+Único archivo que toca el plugin: zona horaria, canales, alarmas inexactas, acciones.
+
+<img src="evidence/ronda10/captura_ronda10.png" width="820">
+
+### Ronda 11 — ViewModel y pantallas
+Estado observable, diálogo de pre-permiso, ajustes por categoría y modo clase.
+
+<img src="evidence/ronda11/captura_ronda11.png" width="820">
+
+### Ronda 12 — Verificación en dispositivo
+Suite completa + análisis estático; el recorrido físico sigue la checklist del manual.
+
+<img src="evidence/ronda12/captura_ronda12.png" width="820">
+
+### Ronda 13 — Push (conceptual)
+El manual explica FCM/APNs y el patrón de puerto, pero **no implementa push**.
+
+<img src="evidence/ronda13/captura_ronda13.png" width="820">
+
+---
+
+## Estructura
 
 ```
-00:00 +16: All tests passed!
+lib/
+├── dominio/      reloj, mascota, categoria, mensajes, politica, payload,
+│                 planificador, puerto, almacen, gestor_permiso, servicio
+├── infra/        puerto_real, almacen_prefs
+├── presentacion/ ajolote_vm, dibujo_ajolote, pantalla_ajolote, pantalla_ajustes
+├── app.dart
+└── main.dart
+test/             mascota, politica_payload, planificador, permiso,
+                  servicio, vm, pantalla (+ falsos)
+evidence/         capturas por ronda (PNG + log)
 ```
+
+> Las capturas son renderizados de la salida real de `flutter test` / `dart analyze`
+> guardada en `evidence/rondaN/captura.txt`.

@@ -1,0 +1,37 @@
+$ flutter test test/politica_payload_test.dart
+Resolving dependencies...
+Downloading packages...
+  app_settings 5.2.0 (9.0.1 available)
+  dbus 0.7.15 (0.8.0 available)
+  flutter_lints 5.0.0 (6.0.0 available)
+  flutter_local_notifications 20.1.0 (23.0.2 available)
+  flutter_local_notifications_linux 7.0.0 (9.0.0 available)
+  flutter_local_notifications_platform_interface 10.0.0 (13.0.0 available)
+  flutter_local_notifications_windows 2.0.1 (4.0.1 available)
+  lints 5.1.1 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  petitparser 7.0.2 (7.1.0 available)
+  shared_preferences_foundation 2.5.7 (2.6.2 available)
+  test_api 0.7.12 (0.7.15 available)
+  timezone 0.10.1 (0.11.2 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 6.6.1 (7.1.0 available)
+Got dependencies!
+16 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart
+00:00 +0: horas de silencio (cruzan la medianoche) de 22 a 7:59 hay silencio
+00:00 +1: horas de silencio (cruzan la medianoche) de 8 a 21:59 no
+00:00 +2: horas de silencio (cruzan la medianoche) justo a las 22:00 empieza y justo a las 8:00 termina
+00:00 +3: horas de silencio (cruzan la medianoche) si desde == hasta, no hay silencio
+00:00 +4: horas de silencio (cruzan la medianoche) también funciona un silencio dentro del mismo día (13 a 15)
+00:00 +5: ajustar: mover al final del silencio de día no cambia nada
+00:00 +6: ajustar: mover al final del silencio a las 23:00 pasa a las 8:00 del día siguiente
+00:00 +7: ajustar: mover al final del silencio a las 03:00 pasa a las 8:00 del MISMO día
+00:00 +8: ajustar: mover al final del silencio fin de mes: el 30 a las 23:00 pasa al 1 del mes siguiente
+00:00 +9: payload ida y vuelta
+00:00 +10: payload formato versionado
+00:00 +11: payload basura, versión desconocida o vacío caen en inicio (nunca truena)
+00:00 +12: All tests passed!
+

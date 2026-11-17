@@ -1,0 +1,4 @@
+$ dart analyze lib/infra
+Analyzing infra...
+No issues found!
+

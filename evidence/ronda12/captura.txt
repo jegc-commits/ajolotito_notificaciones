@@ -1,0 +1,103 @@
+$ flutter test
+Resolving dependencies...
+Downloading packages...
+  app_settings 5.2.0 (9.0.1 available)
+  dbus 0.7.15 (0.8.0 available)
+  flutter_lints 5.0.0 (6.0.0 available)
+  flutter_local_notifications 20.1.0 (23.0.2 available)
+  flutter_local_notifications_linux 7.0.0 (9.0.0 available)
+  flutter_local_notifications_platform_interface 10.0.0 (13.0.0 available)
+  flutter_local_notifications_windows 2.0.1 (4.0.1 available)
+  lints 5.1.1 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  petitparser 7.0.2 (7.1.0 available)
+  shared_preferences_foundation 2.5.7 (2.6.2 available)
+  test_api 0.7.12 (0.7.15 available)
+  timezone 0.10.1 (0.11.2 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 6.6.1 (7.1.0 available)
+Got dependencies!
+16 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/permiso_test.dart
+00:00 +0: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/permiso_test.dart: al inicio nunca hemos preguntado
+00:00 +1: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/permiso_test.dart: el usuario acepta: queda concedido
+00:00 +2: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/permiso_test.dart: si ya estaba concedido, no vuelve a preguntar
+00:00 +3: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/permiso_test.dart: el usuario dice que no: NO insistimos, lo guiamos a Ajustes
+00:00 +4: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/permiso_test.dart: si luego lo activa en Ajustes, volvemos a verlo concedido
+00:00 +5: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/permiso_test.dart: abrirAjustes delega en el puerto
+00:00 +6: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: al iniciar NO pide permiso (se pide en contexto, no al arrancar)
+00:00 +7: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: activarAvisos pide permiso y, si lo dan, programa avisos
+00:00 +8: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: si el usuario rechaza, no se programa nada y la siguiente vez lo mandamos a Ajustes
+00:00 +9: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: alimentar con la panza llena avisa con cariño, sin tronar
+00:00 +10: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: alimentar con hambre sube la saciedad
+00:00 +11: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: toques en notificaciones tocar un aviso de hambre resalta el botón de alimentar
+00:00 +12: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: toques en notificaciones el botón "Dar de comer" de la notificación alimenta de una vez
+00:00 +13: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/vm_test.dart: toques en notificaciones arrancar desde la notificación alimentarYa también alimenta
+00:00 +14: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: saciedad empieza en 100 y baja 10 puntos por hora
+00:00 +15: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: saciedad empieza en 100 y baja 10 puntos por hora
+00:00 +16: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: saciedad empieza en 100 y baja 10 puntos por hora
+00:00 +17: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: saciedad nunca baja de 0
+00:00 +18: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: saciedad antes del punto de partida devuelve la base (sin valores raros)
+00:00 +19: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: humor (pruebas de frontera) feliz mientras la saciedad sea mayor a 40
+00:00 +20: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: humor (pruebas de frontera) hambriento justo en 40
+00:00 +21: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: humor (pruebas de frontera) hambriento hasta pasar 15
+00:00 +22: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: humor (pruebas de frontera) famélico justo en 15
+00:00 +23: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: predicción: ¿cuándo tendrá hambre? llega a 40 a las 6 horas y a 15 a las 8.5 horas
+00:00 +24: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: predicción: ¿cuándo tendrá hambre? si ya estaba por debajo, devuelve el punto de partida
+00:00 +25: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: predicción: ¿cuándo tendrá hambre? la predicción coincide con el cálculo de saciedad
+00:00 +26: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: alimentar suma una porción (35) a lo que tenga en ese momento
+00:00 +27: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: alimentar no pasa de 100
+00:00 +28: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: alimentar con 90 o más ya no quiere comer
+00:00 +29: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: cambiar el ritmo no produce saltos en la saciedad
+00:00 +30: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: guardar y leer (JSON) ida y vuelta conserva todo
+00:00 +31: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/mascota_test.dart: guardar y leer (JSON) datos dañados o raros devuelven null, no truenan
+00:01 +32: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: horas de silencio (cruzan la medianoche) de 22 a 7:59 hay silencio
+00:01 +33: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: horas de silencio (cruzan la medianoche) de 8 a 21:59 no
+00:01 +34: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: horas de silencio (cruzan la medianoche) justo a las 22:00 empieza y justo a las 8:00 termina
+00:01 +35: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: horas de silencio (cruzan la medianoche) si desde == hasta, no hay silencio
+00:01 +36: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: horas de silencio (cruzan la medianoche) también funciona un silencio dentro del mismo día (13 a 15)
+00:01 +37: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: ajustar: mover al final del silencio de día no cambia nada
+00:01 +38: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: ajustar: mover al final del silencio a las 23:00 pasa a las 8:00 del día siguiente
+00:01 +39: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: ajustar: mover al final del silencio a las 03:00 pasa a las 8:00 del MISMO día
+00:01 +40: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: ajustar: mover al final del silencio fin de mes: el 30 a las 23:00 pasa al 1 del mes siguiente
+00:01 +41: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: payload ida y vuelta
+00:01 +42: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: payload formato versionado
+00:01 +43: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/politica_payload_test.dart: payload basura, versión desconocida o vacío caen en inicio (nunca truena)
+00:01 +44: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: la primera vez crea al ajolote y lo guarda; la segunda lo recupera
+00:01 +45: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: sincronizar en segundo plano programa hambre, crítico y 3 sorpresas
+00:01 +46: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: sincronizar sin permiso no se programa NADA y se limpia lo anterior
+00:01 +47: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: sincronizar es idempotente: sincronizar dos veces deja lo mismo (sin duplicados)
+00:01 +48: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: alimentar reemplaza el aviso viejo (nada de notificaciones obsoletas) tras comer a las 15:00, el hambre se reprograma a las 19:30 y el crítico a las 8:00
+00:01 +49: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: primer plano / segundo plano mirando la app NO se programa hambre, pero sí las sorpresas
+00:01 +50: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: primer plano / segundo plano al salir de la app vuelve a programar el hambre
+00:01 +51: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: preferencias del usuario apagar "hambre" quita 1 y 2, y se recuerda
+00:01 +52: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: preferencias del usuario apagar "sorpresas" deja solo hambre
+00:01 +53: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: modo clase (tiempo acelerado) con ritmo 600, hambre a los 6 min y crítico a los 8.5 min; ambos se conservan
+00:01 +54: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: toques en notificaciones arranque desde cerrada: el payload decide la pantalla
+00:01 +55: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: toques en notificaciones sin notificación de arranque, abre en inicio
+00:01 +56: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: toques en notificaciones payload corrupto, abre en inicio
+00:01 +57: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/servicio_test.dart: probarAhora muestra una notificación inmediata
+00:02 +58: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: día normal: hambre 16:00, sorpresa 18:00, crítico 18:30 y sorpresas de los días siguientes
+00:02 +59: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: cada notificación lleva su payload y textos con el nombre
+00:02 +60: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: horas de silencio el aviso crítico de las 23:30 se pospone a las 8:00 del día siguiente
+00:02 +61: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: horas de silencio si hambre y crítico caerían juntos al terminar el silencio, solo queda el crítico
+00:02 +62: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: horas de silencio ninguna notificación cae en horas de silencio
+00:02 +63: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: no avisar de lo que ya pasó si ya tiene hambre, solo se programa el crítico
+00:02 +64: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: no avisar de lo que ya pasó si ya es famélico, no se programa nada de hambre
+00:02 +65: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: no avisar de lo que ya pasó pasadas las 18:00, la primera sorpresa es mañana
+00:02 +66: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: categorías apagadas por el usuario sin hambre: solo sorpresas
+00:02 +67: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: categorías apagadas por el usuario sin sorpresas: solo hambre
+00:02 +68: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: categorías apagadas por el usuario todo apagado: lista vacía
+00:02 +69: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: tope diario: con máximo 2, se sacrifica la sorpresa (la menos importante)
+00:02 +70: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/planificador_test.dart: los ids son únicos (así programar reemplaza en vez de duplicar)
+00:02 +71: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/pantalla_test.dart: muestra al ajolote feliz y el botón para activar avisos
+00:04 +72: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/pantalla_test.dart: con hambre, dar de comer sube la saciedad
+00:05 +73: /home/tahg/Documentos/GitHub/ajolotito_notificaciones/test/pantalla_test.dart: el permiso se pide solo tras explicar y aceptar en el diálogo
+00:06 +74: All tests passed!
+
+$ dart analyze
+Analyzing ajolotito_notificaciones...
+No issues found!
+

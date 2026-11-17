@@ -1,0 +1,4 @@
+$ dart analyze lib/dominio/puerto.dart test/falsos.dart
+Analyzing puerto.dart, falsos.dart...
+No issues found!
+
