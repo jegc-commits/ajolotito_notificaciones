@@ -107,8 +107,9 @@ class Mascota {
       final s = j['saciedadBase'];
       final d = j['desde'];
       final r = j['puntosPorHora'];
-      if (n is! String || n.isEmpty || s is! num || d is! String || r is! num)
+      if (n is! String || n.isEmpty || s is! num || d is! String || r is! num) {
         return null;
+      }
       final fecha = DateTime.tryParse(d);
       if (fecha == null || s < 0 || s > maxSaciedad || r <= 0) return null;
       return Mascota(
